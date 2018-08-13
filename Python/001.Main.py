@@ -1,5 +1,5 @@
 print ("Hello World");
-print ("你世");
+print ("你好世界");
 
 a = 100;
 b = 100.0;
@@ -88,3 +88,13 @@ def printinfo( arg1, *vartuple ):
 # Now you can call printinfo function
 printinfo( 10 );
 printinfo( 70, 60, 50 );
+
+
+def functionLoop(count):
+    for i in range(count + 1):
+        for j in range(count + 1):
+            print (i*j, end=' ');
+        print();
+
+functionLoop(10);
+
