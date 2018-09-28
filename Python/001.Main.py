@@ -98,3 +98,20 @@ def functionLoop(count):
 
 functionLoop(10);
 
+#输输
+strInput = input("Tips : ");
+print(strInput);
+
+
+#文件
+fileRW = open("support.py", "wb");
+print("Name of the file ", fileRW.name);
+print("Closed or not ", fileRW.closed);
+print("Opening mode : ", fileRW.mode);
+fileRW.close();
+
+fileRW = open("New file.txt", "w");
+fileRW.write("Hello World !\n");
+fileRW.close();
+
+
