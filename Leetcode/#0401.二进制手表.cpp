@@ -131,7 +131,7 @@ public:
 		for (int hour = 0; hour < 12; ++hour) {
 			bitset<4> hourBit(hour);
 			for (int minute = 0; minute < 60; ++minute) {
-				bitset<8> minuteBit(minute);
+				bitset<6> minuteBit(minute);
 				if ((hourBit.count() + minuteBit.count()) == num) {
 					char pCStr[10] = { 0 };
 					sprintf_s(pCStr, "%d:%02d", hour, minute);
