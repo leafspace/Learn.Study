@@ -49,3 +49,36 @@ public:
         return retLst;
     }
 };
+
+class Solution {
+public:
+    vector<int> preorder(Node* root) {
+        stack <Node*> tStack;
+        vector<int> retLst;
+        
+        Node* tempNode = root;
+        do
+        {
+            if (tempNode != NULL) {
+                // 存储数据
+                retLst.push_back(tempNode->val);
+                
+                // 有叶子，则反序存放叶子
+                if (tempNode->children.size() != 0) {
+                    for (int i = tempNode->children.size() - 1; i >= 0; --i) {
+                        tStack.push(tempNode->children[i]);
+                    }   
+                }
+                
+               if (!tStack.empty()){
+                    tempNode = tStack.top();
+                    tStack.pop();
+                } else {
+                   tempNode = NULL;
+               }
+            }
+        } while(!tStack.empty() || tempNode != NULL);
+        
+        return retLst;
+    }
+};
