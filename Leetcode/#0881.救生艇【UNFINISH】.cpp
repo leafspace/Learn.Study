@@ -31,93 +31,37 @@
 class Solution {
 public:
     int numRescueBoats(vector<int>& people, int limit) {
-        int iRetTimes = 0;
-        int iLeftPeople = people.size();
-        bool *bUseFlags = new bool[people.size()];
-        for (int i = 0; i < people.size(); ++i) {
-            bUseFlags[i] = true;
+        sort(people.begin(), people.end());
+
+        // 异常情况
+        if (people[people.size() - 1] > limit)
+        {
+            return 0;
         }
-        
-        
-        while(iLeftPeople) {
-            // TODO 找到当前数组里满足 0 < x < limit 的最大x组合
-            int iMaxIndex = this->findMaxIndex(people, bUseFlags);
-            int iMinIndex = this->findMinIndex(people, bUseFlags, iMaxIndex);
-            
-            if (iMaxIndex == -1) {
-                if (iMinIndex == -1) {
-                    // 不会出现这种情况
-                }
-                bUseFlags[iMinIndex] = false;
-                iLeftPeople--;
-            } else if(iMinIndex == -1) {
-                bUseFlags[iMaxIndex] = false;
-                iLeftPeople--;
-            } else if(iMaxIndex == iMinIndex) {
-                bUseFlags[iMinIndex] = false;
-                iLeftPeople--;
-            } else {
-                if ((people[iMaxIndex] + people[iMinIndex]) <= limit) {
-                    bUseFlags[iMaxIndex] = false;
-                    bUseFlags[iMinIndex] = false;
-                    iLeftPeople-=2;
-                } else {
-                    bUseFlags[iMaxIndex] = false;
-                    iLeftPeople--;
-                }
+
+        int nRetCount = 0;
+        bool* pbIsSaved = new bool[people.size()];
+        memset(pbIsSaved, false, sizeof(bool) * people.size());
+
+        int i = people.size() - 1;
+        int j = 0;
+        while (i >= 0 && j < i)
+        {
+            int nLeftPeopleSize = limit - people[i];
+            pbIsSaved[i] = true;
+            nRetCount++;
+
+            if (people[j] <= nLeftPeopleSize)
+            {
+                pbIsSaved[j] = true;
+                j++;
             }
-            iRetTimes++;
+
+            // 找到下一个第一个人的位置
+            i--;
         }
-        
-        return iRetTimes;
+
+        delete[] pbIsSaved;
+        return nRetCount;
     }
-    
-    bool checkSumLimit(vector<int> people, int limit) {
-        int sum = 0;
-        for (int i = 0; i < people.size(); ++i) {
-            sum += people[i];
-        }
-        return sum < limit;
-    }
-    
-    int findMaxIndex(vector<int> &people, bool *bUseFlags, int iMinIndex = -1) {
-        int iRetIndex = 0;
-        while ((iRetIndex < people.size() && !bUseFlags[iRetIndex]) || iRetIndex == iMinIndex) {
-            iRetIndex++;
-        };
-        
-        if (iRetIndex == people.size()) {
-            return -1;
-        }
-        
-        for (int i = 0; i < people.size(); ++i) {
-            if (!bUseFlags[i] || i == iRetIndex) {
-                continue;
-            }
-            
-            if (people[i] > people[iRetIndex]) {
-                iRetIndex = i;
-            }
-        }
-        return iRetIndex;
-    }
-    
-    int findMinIndex(vector<int> &people, bool *bUseFlags, int iMaxIndex = -1) {
-        int iRetIndex = 0;
-        while ((iRetIndex < people.size() && !bUseFlags[iRetIndex]) || iRetIndex == iMaxIndex) {
-            iRetIndex++;
-        };
-        
-        for (int i = 0; i < people.size(); ++i) {
-            if (!bUseFlags[i] || i == iRetIndex) {
-                continue;
-            }
-            
-            if (people[i] < people[iRetIndex]) {
-                iRetIndex = i;
-            }
-        }
-        return iRetIndex;
-    }
-    
 };
