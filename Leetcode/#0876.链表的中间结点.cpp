@@ -52,3 +52,42 @@ public:
         return head;
     }
 };
+
+
+// 2020 03 23
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* retNode = head;
+        ListNode* moveNode = head;
+        int nRetNodeIndex = 1, nMoveNodeIndex = 1;
+        while (moveNode != NULL)
+        {
+            if (nRetNodeIndex != ((nMoveNodeIndex / 2) + 1))
+            {
+                retNode = retNode->next;
+                nRetNodeIndex++;
+            }
+
+            if (moveNode->next == NULL)
+            {
+                break;
+            }
+            else
+            {
+                moveNode = moveNode->next;
+                nMoveNodeIndex++;
+            }
+        }
+
+        return retNode;
+    }
+};
