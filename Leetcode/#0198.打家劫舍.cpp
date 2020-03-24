@@ -20,27 +20,29 @@
 class Solution {
 public:
     int rob(vector<int>& nums) {
-        // 制约因素就是间隔1、2、3、4...个房屋去偷窃，查看最大值
-        
-        int retValue = 0;
-        for(int i = 1; i <= nums.size(); ++i) {                 // 间隔几个人家去偷
-            for(int j = 0; j < nums.size(); ++j) {             // 从第几个人家开始偷
-                int turnSize = this->getTurnValue(nums, i, j);
-                if (turnSize > retValue) {
-                    retValue = turnSize;
-                }
-            }
+        int nRetMax = 0;
+        int *nChoose = new int[nums.size()];
+        int *nNoChoose = new int[nums.size()];
+
+        if (nums.size() == 0)
+        {
+            return 0;
         }
         
-        return retValue;
-    }
-    
-    int getTurnValue(vector<int>& nums, int turnSize, int beginIndex) {
-        int retValue = 0;
-        for (int i = beginIndex; i < nums.size(); i += (turnSize + 1)) {
-            retValue += nums[i];
+        nChoose[0] = nums[0];
+        nNoChoose[0] = 0;
+
+        for (int i = 1; i < nums.size(); ++i)
+        {
+            nChoose[i] = nNoChoose[i - 1] + nums[i];
+            nNoChoose[i] = max(nChoose[i - 1], nNoChoose[i - 1]);    
         }
-        cout << turnSize << "\t" << beginIndex << "\t" << retValue << endl;
-        return retValue;
+
+        nRetMax = max(nChoose[nums.size() - 1], nNoChoose[nums.size() - 1]);
+
+        delete[] nChoose;
+        delete[] nNoChoose;
+
+        return nRetMax;
     }
 };
