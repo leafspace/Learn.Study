@@ -70,3 +70,47 @@ public:
         return this->compareStack(this->string2Stack(S), this->string2Stack(T));
     }
 };
+
+// 202010  
+
+class Solution {
+    void InitStack(stack<char> &st, string str)
+    {
+        for (int i = 0; i < str.size(); ++i) {
+            if (str[i] == '#') {
+                if (!st.empty()) {
+                    st.pop();
+                }
+            }
+            else
+            {
+                st.push(str[i]);
+            }
+        }
+    }
+public:
+    bool backspaceCompare(string S, string T) {
+        stack<char> sStack;
+        stack<char> tStack;
+
+        InitStack(sStack, S);
+        InitStack(tStack, T);
+
+        while (!sStack.empty() && !tStack.empty())
+        {
+            if (sStack.top() != tStack.top()) {
+                return false;
+            }
+
+            sStack.pop();
+            tStack.pop();
+        }
+
+        if (!sStack.empty() || !tStack.empty()) {
+            return false;
+        }
+
+        return true;
+
+    }
+};
