@@ -64,6 +64,8 @@ public:
             }
         }
         
+        if (typedI < typed.size()) return false;
+        
         return true;
     }
 };
