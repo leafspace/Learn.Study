@@ -1,0 +1,39 @@
+﻿*.svn
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Compiled Dynamic libraries
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Executables
+*.out
+*.app
+
+*.ncb
+*.aps
+*.idb
+*.pch
+
+vc90.pdb
+vc140.pdb
+mt.dep
+BuildLog.htm
+
+*.exe.embed.manifest
+*.exe.embed.manifest.res
+*.exe.intermediate.manifest
+
+.svn/
+.DS_Store
+
+/Electron/ElectronTest/node_modules/electron/dist/electron.exe
+/.vscode/
