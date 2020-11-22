@@ -25,24 +25,18 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        if (s.size() != t.size())
+        if (s.size() != t.size()) return false;
+        int charaterList[26] = { 0 };
+
+        for (size_t i = 0; i < s.size(); ++i)
         {
-            return false;
+            charaterList[s[i] - 'a']++;
+            charaterList[t[i] - 'a']--;
         }
 
-        char pChar[27] = { 0 };
-        for (int i = 0; i < s.size(); ++i)
+        for (int i = 0; i < 26; ++i)
         {
-            pChar[s[i] - 'a']++;
-            pChar[t[i] - 'a']--;
-        }
-
-        for (int i = 0; i < 27; ++i)
-        {
-            if (pChar[i] != 0)
-            {
-                return false;
-            }
+            if (charaterList[i] != 0) return false;
         }
 
         return true;
